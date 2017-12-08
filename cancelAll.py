@@ -7,12 +7,12 @@ from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
 from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_CANCEL_ALL
 
 # Switch between prod and sandbox here
-url = SANDBOX_URL
+url = SANDBOX_URL + ORDER_CANCEL_ALL
 
 ORDER_ID = 12345 # INTEGER
 
 jsonRequest = json.dumps({
-    "request": ORDER_NEW,
+    "request": ORDER_CANCEL_ALL,
     "nonce": SANDBOX_NONCE
 })
 

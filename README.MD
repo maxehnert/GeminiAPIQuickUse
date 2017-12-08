@@ -10,8 +10,9 @@ This package only supports buying/selling with existing balances. I do not see a
 
 ## How To Use
 
-Create an `apiKeys.py` file and past your 2 API keys in there
-Depending on whether you're using this for testing or live will determine which API keys and which endpoint you want to use.
+Create an `apiKeys.py` file and paste your 2 API keys in there. I'm using these variable names for sandbox keys, `gemini_sandbox_api_key` and `gemini_sandbox_api_secret`.
+
+Depending on whether you're using this for testing or live will determine which API keys and which endpoint you want to use. Checkout the `utils.py` file to see the different sandbox/prod differences in url and nonce. 
 
 For Buy/Sell orders I have variables to enter the amounts into. I wanted to make it very clear and hard to mess up because of the consequences that can come with making btc transactions.
 

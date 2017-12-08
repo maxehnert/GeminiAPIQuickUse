@@ -6,8 +6,9 @@ import hashlib
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
 from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_OPEN
 
+# Switch between prod and sandbox here
 url = SANDBOX_URL + ORDER_OPEN
-print(url)
+
 jsonRequest = json.dumps({
     "request": ORDER_OPEN,
     "nonce": SANDBOX_NONCE

@@ -3,15 +3,16 @@ import json
 import base64
 import hmac
 import hashlib
+from getResponses import getResponse
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
-from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_NEW, BTC_USD
+from utils import SANDBOX_URL, SANDBOX_NONCE, PROD_URL, PROD_NONCE, ORDER_NEW, BTC_USD, ETH_USD
 
 # Switch between prod and sandbox here
 url = SANDBOX_URL + ORDER_NEW
 
-amount = '1.23' # How many coins? ex "1.234567890"
+amount = '0.1' # How many coins? ex "1.234567890"
 
-price = '111.22' # How much are you selling for? ex "10001.43"
+price = '16500.00' # How much are you buying for? ex "10001.43"
 
 # different buy order, cant use this when UI is down "options": ["immediate-or-cancel"]
 jsonRequest = json.dumps({
@@ -39,6 +40,13 @@ headers = {
     }
 
 response = requests.request("POST", url, headers=headers)
+responseParsed = json.loads(response.content)
+
+if 'result' not in responseParsed:
+    print('Buy Order')
+    print('\n')
+    getResponse(responseParsed)
+
 
 print(response)
-print(response.text)
+print(response.content)

@@ -3,13 +3,14 @@ import json
 import base64
 import hmac
 import hashlib
+from getResponses import getResponse
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
-from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_CANCEL_SINGLE
+from utils import SANDBOX_URL, SANDBOX_NONCE, PROD_URL, PROD_NONCE, ORDER_CANCEL_SINGLE
 
 # Switch between prod and sandbox here
 url = SANDBOX_URL + ORDER_CANCEL_SINGLE
 
-ORDER_ID = 86709841 # INTEGER
+ORDER_ID = 87321517 # INTEGER
 
 jsonRequest = json.dumps({
     "request": ORDER_CANCEL_SINGLE,
@@ -31,6 +32,10 @@ headers = {
     }
 
 response = requests.request("POST", url, headers=headers)
+responseParsed = json.loads(response.content)
+
+if 'result' not in responseParsed:
+    getResponse(responseParsed)
 
 print(response)
-print(response.text)
+print(response.content)

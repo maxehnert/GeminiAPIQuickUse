@@ -3,8 +3,9 @@ import json
 import base64
 import hmac
 import hashlib
+from getResponses import getResponse
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
-from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_NEW, BTC_USD
+from utils import SANDBOX_URL, SANDBOX_NONCE, PROD_URL, PROD_NONCE, ORDER_NEW, BTC_USD, ETH_USD
 
 # Switch between prod and sandbox here
 url = SANDBOX_URL + ORDER_NEW
@@ -39,6 +40,12 @@ headers = {
     }
 
 response = requests.request("POST", url, headers=headers)
+responseParsed = json.loads(response.content)
+
+if 'result' not in responseParsed:
+    print('Sell Order')
+    print('\n')
+    getResponse(responseParsed)
 
 print(response)
-print(response.text)
+print(response.content)

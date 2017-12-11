@@ -4,12 +4,10 @@ import base64
 import hmac
 import hashlib
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
-from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_CANCEL_ALL
+from utils import SANDBOX_URL, SANDBOX_NONCE, PROD_URL, PROD_NONCE, ORDER_CANCEL_ALL
 
 # Switch between prod and sandbox here
 url = SANDBOX_URL + ORDER_CANCEL_ALL
-
-ORDER_ID = 12345 # INTEGER
 
 jsonRequest = json.dumps({
     "request": ORDER_CANCEL_ALL,
@@ -30,6 +28,13 @@ headers = {
     }
 
 response = requests.request("POST", url, headers=headers)
+responseParsed = json.loads(response.content)
+
+if 'result' in responseParsed and responseParsed['result'] == 'ok':
+    print('All Cancelled Orders')
+    print('total orders cancelled: ' + str(len(responseParsed['details']['cancelledOrders'])))
+    for order in responseParsed['details']['cancelledOrders']:
+        print('order: ' + str(order))
 
 print(response)
-print(response.text)
+print(response.content)

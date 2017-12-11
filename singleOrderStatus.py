@@ -3,12 +3,13 @@ import json
 import base64
 import hmac
 import hashlib
+from getResponses import getResponse
 from apiKeys import gemini_sandbox_api_key, gemini_sandbox_api_secret
-from utils import SANDBOX_URL, SANDBOX_NONCE, ORDER_STATUS
+from utils import SANDBOX_URL, SANDBOX_NONCE, PROD_URL, PROD_NONCE, ORDER_STATUS
 
 url = SANDBOX_URL + ORDER_STATUS
 
-ORDER_ID = 86709841 # INTEGER
+ORDER_ID = 87321509 # INTEGER
 
 jsonRequest = json.dumps({
     "request": ORDER_STATUS,
@@ -30,6 +31,10 @@ headers = {
     }
 
 response = requests.request("POST", url, headers=headers)
+responseParsed = json.loads(response.content)
+
+if 'result' not in responseParsed:
+    getResponse(responseParsed)
 
 print(response)
-print(response.text)
+print(response.content)
